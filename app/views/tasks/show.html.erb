@@ -2,7 +2,10 @@
 <%= @message.id %>
  のタスクリスト詳細ページ</h1>
 
-<p>
+<p>ステータス:
+<%= @message.status %>
+</p>
+<p>タスク：
 <%= @message.content %>
 </p>
 

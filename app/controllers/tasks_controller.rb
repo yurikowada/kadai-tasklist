@@ -2,9 +2,9 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update]
   before_action :require_user_logged_in
   before_action :correct_user, only: [:destroy]
+  before_action :select_user, only: [:edit, :update, :show]
 
   def index
-     #@tasks = Task.all.page(params[:page])
      @tasks = current_user.tasks.page(params[:page])
   end
   
@@ -82,6 +82,11 @@ class TasksController < ApplicationController
       flash[:danger] = '他のユーザのTask は削除できません'
       redirect_to root_path
       end
+    end
+    
+    def select_user
+      @task = Task.find(params[:id])
+      redirect_to root_path if @task.user != current_user
     end
   
 end
